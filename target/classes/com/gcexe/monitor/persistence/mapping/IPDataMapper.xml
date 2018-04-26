@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gcexe.monitor.persistence.dao.IPDataMapper">
+	<resultMap id="BaseResultMap" type="com.gcexe.monitor.persistence.entity.IPData">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="ip_id" property="ipId" jdbcType="INTEGER" />
+		<result column="ip_com" property="ipCom" jdbcType="VARCHAR" />
+		<result column="ip" property="ip" jdbcType="VARCHAR" />
+		<result column="ip_domain" property="ipDomain" jdbcType="VARCHAR" />
+		<result column="record_no" property="recordNo" jdbcType="VARCHAR" />
+		<result column="record_com" property="recordCom" jdbcType="VARCHAR" />
+		<result column="record_time" property="recordTime" jdbcType="TIMESTAMP" />
+		<result column="is_record" property="isRecord" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="updator" property="updator" jdbcType="VARCHAR" />
+		<result column="version" property="version" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, ip_id, ip_com, ip, ip_domain, record_no, record_com, record_time,
+		is_record,
+		create_time, update_time, creator, updator, version
+	</sql>
+	<select id="selectByipId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		IFNULL(ip_id,0)
+		from ip_data
+		where ip_id = #{ipId,jdbcType=INTEGER}
+	</select>
+	<select id="search" resultMap="BaseResultMap" parameterType="map">
+		SELECT * FROM ip_data limit ${pagenum},${limit}
+	</select>
+	<select id="getRowCount" resultType="java.lang.Integer">
+		select count(*) as count from ip_data
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from ip_data
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from ip_data
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.gcexe.monitor.persistence.entity.IPData">
+		insert into ip_data (id, ip_id, ip_com,
+		ip, ip_domain, record_no,
+		record_com, record_time, is_record,
+		create_time, update_time, creator,
+		updator, version)
+		values (#{id,jdbcType=INTEGER}, #{ipId,jdbcType=INTEGER},
+		#{ipCom,jdbcType=VARCHAR},
+		#{ip,jdbcType=VARCHAR}, #{ipDomain,jdbcType=VARCHAR}, #{recordNo,jdbcType=VARCHAR},
+		#{recordCom,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP},
+		#{isRecord,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR},
+		#{updator,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.gcexe.monitor.persistence.entity.IPData">
+		insert into ip_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="ipId != null">
+				ip_id,
+			</if>
+			<if test="ipCom != null">
+				ip_com,
+			</if>
+			<if test="ip != null">
+				ip,
+			</if>
+			<if test="ipDomain != null">
+				ip_domain,
+			</if>
+			<if test="recordNo != null">
+				record_no,
+			</if>
+			<if test="recordCom != null">
+				record_com,
+			</if>
+			<if test="recordTime != null">
+				record_time,
+			</if>
+			<if test="isRecord != null">
+				is_record,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="updator != null">
+				updator,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="ipId != null">
+				#{ipId,jdbcType=INTEGER},
+			</if>
+			<if test="ipCom != null">
+				#{ipCom,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				#{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="ipDomain != null">
+				#{ipDomain,jdbcType=VARCHAR},
+			</if>
+			<if test="recordNo != null">
+				#{recordNo,jdbcType=VARCHAR},
+			</if>
+			<if test="recordCom != null">
+				#{recordCom,jdbcType=VARCHAR},
+			</if>
+			<if test="recordTime != null">
+				#{recordTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isRecord != null">
+				#{isRecord,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="updator != null">
+				#{updator,jdbcType=VARCHAR},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.gcexe.monitor.persistence.entity.IPData">
+		update ip_data
+		<set>
+			<if test="ipId != null">
+				ip_id = #{ipId,jdbcType=INTEGER},
+			</if>
+			<if test="ipCom != null">
+				ip_com = #{ipCom,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				ip = #{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="ipDomain != null">
+				ip_domain = #{ipDomain,jdbcType=VARCHAR},
+			</if>
+			<if test="recordNo != null">
+				record_no = #{recordNo,jdbcType=VARCHAR},
+			</if>
+			<if test="recordCom != null">
+				record_com = #{recordCom,jdbcType=VARCHAR},
+			</if>
+			<if test="recordTime != null">
+				record_time = #{recordTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isRecord != null">
+				is_record = #{isRecord,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="updator != null">
+				updator = #{updator,jdbcType=VARCHAR},
+			</if>
+			<if test="version != null">
+				version = #{version,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.gcexe.monitor.persistence.entity.IPData">
+		update ip_data
+		set ip_id = #{ipId,jdbcType=INTEGER},
+		ip_com = #{ipCom,jdbcType=VARCHAR},
+		ip = #{ip,jdbcType=VARCHAR},
+		ip_domain = #{ipDomain,jdbcType=VARCHAR},
+		record_no = #{recordNo,jdbcType=VARCHAR},
+		record_com = #{recordCom,jdbcType=VARCHAR},
+		record_time = #{recordTime,jdbcType=TIMESTAMP},
+		is_record = #{isRecord,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		creator = #{creator,jdbcType=VARCHAR},
+		updator = #{updator,jdbcType=VARCHAR},
+		version = #{version,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

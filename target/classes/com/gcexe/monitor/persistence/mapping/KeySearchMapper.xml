@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gcexe.monitor.persistence.dao.KeySearchMapper" >
+  <resultMap id="BaseResultMap" type="com.gcexe.monitor.persistence.entity.KeySearch" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="key_id" property="keyId" jdbcType="INTEGER" />
+    <result column="key_name" property="keyName" jdbcType="VARCHAR" />
+    <result column="key_con" property="keyCon" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="updator" property="updator" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, key_id, key_name, key_con, title, url, address, create_time, update_time, creator, 
+    updator, version
+  </sql>
+
+  <select id="search" resultMap="BaseResultMap" parameterType="map">
+  	SELECT * FROM key_search limit ${pagenum},${limit}
+  </select>
+  <select id="getRowCount" resultType="java.lang.Integer">
+  	select count(*) as count from key_search	
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from key_search
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from key_search
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gcexe.monitor.persistence.entity.KeySearch" >
+    insert into key_search (id, key_id, key_name, 
+      key_con, title, url, 
+      address, create_time, update_time, 
+      creator, updator, version
+      )
+    values (#{id,jdbcType=INTEGER}, #{keyId,jdbcType=INTEGER}, #{keyName,jdbcType=VARCHAR}, 
+      #{keyCon,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{updator,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gcexe.monitor.persistence.entity.KeySearch" >
+    insert into key_search
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="keyId != null" >
+        key_id,
+      </if>
+      <if test="keyName != null" >
+        key_name,
+      </if>
+      <if test="keyCon != null" >
+        key_con,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="updator != null" >
+        updator,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="keyId != null" >
+        #{keyId,jdbcType=INTEGER},
+      </if>
+      <if test="keyName != null" >
+        #{keyName,jdbcType=VARCHAR},
+      </if>
+      <if test="keyCon != null" >
+        #{keyCon,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="updator != null" >
+        #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gcexe.monitor.persistence.entity.KeySearch" >
+    update key_search
+    <set >
+      <if test="keyId != null" >
+        key_id = #{keyId,jdbcType=INTEGER},
+      </if>
+      <if test="keyName != null" >
+        key_name = #{keyName,jdbcType=VARCHAR},
+      </if>
+      <if test="keyCon != null" >
+        key_con = #{keyCon,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="updator != null" >
+        updator = #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gcexe.monitor.persistence.entity.KeySearch" >
+    update key_search
+    set key_id = #{keyId,jdbcType=INTEGER},
+      key_name = #{keyName,jdbcType=VARCHAR},
+      key_con = #{keyCon,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      updator = #{updator,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

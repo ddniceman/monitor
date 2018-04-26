@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="C:/Users/ zhoujian/.m2/repository/mysql/mysql-connector-java/5.1.14/mysql-connector-java-5.1.14.jar" />
+	<context id="context1">
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/monitor" userId="root"
+			password="123456" />
+		<!-- 生成模型的包名和位置 -->
+		<javaModelGenerator targetPackage="com.gcexe.monitor.persistence.entity"
+			targetProject="monitorpro" />
+		<!-- 生成映射文件的包名和位置 -->
+		<sqlMapGenerator targetPackage="com.gcexe.monitor.persistence.mapping"
+			targetProject="monitorpro" />
+			
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator targetPackage="com.gcexe.monitor.persistence.dao"
+			targetProject="monitorpro" type="XMLMAPPER" />
+		<!-- 要生成的表 -->
+		       
+		
+		<table tableName="sys_pic" domainObjectName="SysPic"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		
+	</context>
+</generatorConfiguration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
