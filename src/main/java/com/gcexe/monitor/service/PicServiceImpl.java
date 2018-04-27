@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.gcexe.monitor.persistence.dao.PicSearchMapper;
 import com.gcexe.monitor.persistence.dao.SysPicMapper;
-import com.gcexe.monitor.persistence.entity.PicSearch;
+
 import com.gcexe.monitor.persistence.entity.SysPic;
 import com.gcexe.monitor.utils.ITools;
 import com.gcexe.monitor.utils.ResultCodeVo;
