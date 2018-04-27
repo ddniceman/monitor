@@ -1,15 +1,18 @@
 package com.gcexe.monitor.service;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gcexe.monitor.persistence.dao.PicSearchMapper;
 import com.gcexe.monitor.persistence.dao.SysPicMapper;
-
 import com.gcexe.monitor.persistence.entity.SysPic;
 import com.gcexe.monitor.utils.ITools;
 import com.gcexe.monitor.utils.ResultCodeVo;
@@ -45,13 +48,13 @@ public class PicServiceImpl extends BaseServiceCompnent implements PicService {
 		// 执行添加
 		int cnt = sysPicMapper.insertSelective(sysPic);
 		if (cnt > 0) {
-//			// 获取监控数据
-//			PicSearch picSearch = this.getPicData();
-//			// 持久化保存
-//			int datacnt = picSearchMapp.insertSelective(picSearch);
-//			if (datacnt > 0) {
-				return new ResultCodeVo(true, 0, "success", null);
-//			}
+			// // 获取监控数据
+			// PicSearch picSearch = this.getPicData();
+			// // 持久化保存
+			// int datacnt = picSearchMapp.insertSelective(picSearch);
+			// if (datacnt > 0) {
+			return new ResultCodeVo(true, 0, "success", null);
+			// }
 		}
 		return new ResultCodeVo(false, -1, "failed", null);
 	}
@@ -98,6 +101,7 @@ public class PicServiceImpl extends BaseServiceCompnent implements PicService {
 		}
 		return new ResultCodeVo(false, -1, "failed", null);
 	}
+
 	@Override
 	public ResultCodeVo search(String json) {
 		// 封装json
@@ -140,6 +144,39 @@ public class PicServiceImpl extends BaseServiceCompnent implements PicService {
 		resultMap.put("total", total);
 		resultMap.put("data", picSearchMapp.search(map));
 		return new ResultCodeVo(true, 0, "success", resultMap);
+	}
+
+	public ResultCodeVo uploadImage(MultipartFile file, HttpServletRequest request) {
+		String fileName = file.getOriginalFilename();
+		String fix = fileName.substring(fileName.indexOf(".")+1,fileName.length());
+		fileName = new Date().getTime()+"."+fix;
+		String fileDir = request.getSession().getServletContext().getRealPath("/") + "upload/"+ itools.formatDate(new Date(), "yyyyMMdd");
+		String filePath = fileDir +"/"+fileName;	
+		String urlPath = "upload/"+ itools.formatDate(new Date(), "yyyyMMdd")+"/"+ fileName;
+		File disFile  = new File(fileDir);
+		if(!disFile.exists())
+		{
+			disFile.mkdir(); 
+		}
+		// 判断文件是否为空
+		if (file.isEmpty() ) {
+			return new ResultCodeVo(false,-1, "image file is empty", null);
+		}
+		if (!"JPEG".equals(fix) && !"JPG".equals(fix) && !"PNG".equals(fix) && !"GIF".equals(fix)
+				&&!"jpeg".equals(fix) && !"jpg".equals(fix) && !"png".equals(fix) && !"gif".equals(fix))
+		{
+			return new ResultCodeVo(false,-1, "image file is not a pic", null);
+		}
+		else
+		{
+			try {
+				
+				file.transferTo(new File(filePath));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return new ResultCodeVo(true, 0, "success", urlPath);
 	}
 
 }

@@ -55,7 +55,7 @@ public interface IPDataMapper {
      */
     int updateByPrimaryKey(IPData record);
     
-    List<IPData> selectByipId(Integer id);
+    List<IPData> selectByipId(Map<String,Object> map);
     
     /**
 	 * 查询

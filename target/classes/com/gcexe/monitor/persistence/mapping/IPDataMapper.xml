@@ -23,11 +23,11 @@
 		create_time, update_time, creator, updator, version
 	</sql>
 	<select id="selectByipId" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+		parameterType="map">
 		select
 		IFNULL(ip_id,0)
 		from ip_data
-		where ip_id = #{ipId,jdbcType=INTEGER}
+		where ip_id = #{ipId,jdbcType=INTEGER} and ip_domai = #{ipDomain}
 	</select>
 	<select id="search" resultMap="BaseResultMap" parameterType="map">
 		SELECT * FROM ip_data limit ${pagenum},${limit}

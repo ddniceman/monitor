@@ -1,10 +1,14 @@
 package com.gcexe.monitor.web;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gcexe.monitor.service.PicService;
 import com.gcexe.monitor.utils.ResultCodeVo;
@@ -80,5 +84,38 @@ public class PicController {
 	{
 		return picService.searchdata(json);
 	}
+	
+	/**
+	 * 图片上传
+	 * @param multipartfiles
+	 * @return
+	 */
+	@RequestMapping("/uploatpic")
+	@ResponseBody
+	public ResultCodeVo  uploatpic(@RequestParam("file")MultipartFile  file,HttpServletRequest request)
+	{
+		return picService.uploadImage(file,request);
+	}
+	
+	@RequestMapping("/home")
+	public String home() {
+		return "home";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

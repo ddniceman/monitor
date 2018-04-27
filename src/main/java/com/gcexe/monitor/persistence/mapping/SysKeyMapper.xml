@@ -280,28 +280,28 @@
 		
 	</resultMap>
 	<select id="keyorder" resultMap="keyTopResult"> 
-		select count(*) as cnt,key_con as con
-		from key_search group by key_con ORDER BY cnt desc
+		select count(*) as cnt,a.key_con as con
+		from (select * from key_search group by key_con,url)a group by key_con ORDER BY cnt desc limit 0,10
 	</select>
 	<select id="siteorder" resultMap="keyTopResult"> 
-		select count(*) as cnt,url as con 
-		from key_search group by url ORDER BY cnt desc
+		select count(*) as cnt,a.url as con 
+		from (select * from key_search group by key_con,url)a group by url ORDER BY cnt desc limit 0,10
 	</select> 
 	<select id="keyCount" resultType="java.lang.Integer"> 
 		select count(*) 
-		from (select * from key_search GROUP BY key_con)a
+		from (select * from (select * from key_search group by key_con,url)a GROUP BY key_con)a
 	</select>
 	<select id="urlCount" resultType="java.lang.Integer"> 
 		select count(*) 
-		from (select * from key_search GROUP BY url)a
+		from (select * from (select * from key_search group by key_con,url)a GROUP BY url)a
 	</select>
 	<select id="selectByKey" resultMap="keyTopResult"> 
-		select url as con , 0 as cnt 
-		from key_search where key_con = #{keyCon}
+		select a.url as con , 0 as cnt 
+		from (select * from key_search group by key_con,url)a where key_con = #{keyCon} limit 0,10
 	</select>
 	<select id="selectByUrl" resultMap="keyTopResult"> 
-		select key_con as con , 0 as cnt 
-		from key_search where url = #{url}
+		select a.key_con as con , 0 as cnt 
+		from (select * from key_search group by key_con,url)a where url = #{url} limit 0,10
 	</select>
 	
 	
